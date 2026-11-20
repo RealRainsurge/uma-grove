@@ -15,7 +15,7 @@ Open http://127.0.0.1:4173. Vercel uses `npm run build` and the `dist` directory
 
 ## Features
 - Vertical or horizontal branches; shared veteran library, role icons, borrowed-parent availability, and documented-parent filter.
-- Separate core and priority goals, with core revisions and three-, six-, and seven-slot pedigree coverage.
+- Separate core and priority goals with editable High / Normal / Situational preferences, with core revisions and three-, six-, and seven-slot pedigree coverage.
 - Planned runs, support decks, G1 win records and intended race calendars. Convert a plan into its actual result without breaking links.
 - Character, skill and support reference catalog. Conditional character/support event sources are distinguished from available kit skills.
 - JSON import (file or paste), merge, export and one previous-save backup. Personal data stays in browser storage. No accounts, analytics or server database.
