@@ -1,5 +1,17 @@
 import {SPARKS} from './spark-data.js';
 export const GROVE_ICONS={grove:'♧',leaf:'❧',star:'✦',flower:'✿',moon:'☾',sun:'☀'};
+export const BLUE_TYPES=['Speed','Stamina','Power','Guts','Wit'];
+export const PINK_TYPES=['Turf','Dirt','Sprint','Mile','Medium','Long','Front Runner','Pace Chaser','Late Surger','End Closer'];
+export function coloredEditor(field,types){
+ const [original,count]=field.value.split('|').map(s=>s.trim());field.hidden=true;
+ const host=document.createElement('div');host.className='colored-editor';field.after(host);
+ const type=document.createElement('select');type.setAttribute('aria-label',field.name+' spark type');
+ for(const name of ['',...types,...(original&&!types.includes(original)?[original]:[])]){const o=document.createElement('option');o.value=name;o.textContent=name||'Not recorded';type.append(o);}type.value=original||'';
+ const stars=document.createElement('select');stars.setAttribute('aria-label',field.name+' spark stars');
+ for(const n of ['?','1','2','3']){const o=document.createElement('option');o.value=n;o.textContent=n==='?'?'Stars unknown':'★'.repeat(Number(n));stars.append(o);}stars.value=count||'?';
+ function sync(){field.value=type.value?type.value+' | '+stars.value:'';stars.disabled=!type.value;}
+ type.onchange=stars.onchange=sync;host.append(type,stars);sync();
+}
 export const canonicalSpark=name=>SPARKS.find(s=>s.name===name||s.aliases.includes(name))?.name||({'J. D. Derby':'J.D. Derby','M. C. Nambu Hai':'M.C. Nambu Hai'}[name])||null;
 export const isSkillSpark=name=>SPARKS.some(s=>s.kind==='skill'&&s.name===name);
 export function moveItem(list,index,offset){const next=[...list],target=index+offset;if(target>=0&&target<next.length)[next[index],next[target]]=[next[target],next[index]];return next;}

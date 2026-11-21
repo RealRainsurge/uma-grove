@@ -10,7 +10,17 @@ export const pairingSlots=(db,a,b)=>[...branchSlots(db,record(db,a)),...branchSl
 export const pedigreeSlots=(db,r)=>[r,...pairingSlots(db,...(r?.parents||[null,null]))];
 export function coverage(slots,skills){return skills.map(name=>({name,present:slots.filter(r=>presence(r,name)==='present').length,unknown:slots.filter(r=>presence(r,name)==='unknown').length,total:slots.length}));}
 export const foundation=(db,r,skills)=>skills.length>0&&coverage(branchSlots(db,r),skills).every(x=>x.present===3);
-export function delta(a,b){const left=new Set(a?.sparks.map(s=>s.name)||[]),right=new Set(b?.sparks.map(s=>s.name)||[]);return {gained:[...right].filter(s=>!left.has(s)),lost:[...left].filter(s=>!right.has(s))};}
+export function coreStage(db,r,skills){
+ const covered=slots=>skills.length>0&&coverage(slots,skills).every(x=>x.present===slots.length);
+ return {own:covered([r]),branch:covered(branchSlots(db,r)),pairing:covered(pairingSlots(db,...(r?.parents||[null,null]))),pedigree:covered(pedigreeSlots(db,r))};
+}
+export function priorityChange(previous,next,priority){
+ const gained=priority.filter(s=>presence(next,s)==='present'&&presence(previous,s)==='absent');
+ const lost=priority.filter(s=>presence(previous,s)==='present'&&presence(next,s)==='absent');
+ const uncertain=priority.filter(s=>presence(previous,s)==='unknown'||presence(next,s)==='unknown');
+ return {gained,lost,uncertain,net:gained.length-lost.length};
+}
+export function delta(a,b){return priorityChange(a,b,[...new Set([...(a?.sparks||[]),...(b?.sparks||[])].map(s=>s.name))]);}
 export function validate(input){
  const fail=m=>{throw Error(m)};
  if(!input||input.format!=='uma-grove'||input.version!==1)fail('This is not a supported Uma Grove v1 save.');
@@ -22,8 +32,9 @@ export function validate(input){
  for(const r of input.runs){if(!r||!safeId(r.id)||ids.has(r.id)||!text(r.name,200)||!r.name.trim())fail('Every run needs a unique ID and name.');ids.add(r.id);
  if(!['main','side','archived','planned','source'].includes(r.status)||!Array.isArray(r.parents)||r.parents.length!==2||!Array.isArray(r.sparks)||r.sparks.length>500)fail('Invalid run structure.');
  if(r.sparks.some(s=>!s||!text(s.name,150)||!s.name.trim()||!(s.stars===null||[1,2,3].includes(s.stars)))||new Set(r.sparks.map(s=>s.name)).size!==r.sparks.length)fail('Invalid or duplicate sparks.');
- if(r.score!=null&&(!Number.isFinite(r.score)||r.score<0||r.score>999999))fail('Invalid score.');
- if(!text(r.rank||'',20))fail('Invalid rank.');
+ if(r.score!=null&&(!Number.isInteger(r.score)||r.score<0||r.score>99999))fail('Invalid score.');
+ if(!text(r.rank||'',20)||r.rank&&!/^(?:[GFEDCBAS]\+?|SS\+?|U[GFEDCBAS][1-9]?)$/.test(r.rank))fail('Invalid rank.');
+ if(r.copyOrder!=null&&(!Number.isInteger(r.copyOrder)||r.copyOrder<0))fail('Invalid copy order.');
  if(r.characterId!=null&&!Number.isInteger(r.characterId))fail('Invalid character ID.');
  if(r.role&&!['loop','parent','source','experiment','planned','final'].includes(r.role))fail('Invalid veteran role.');
  if(r.borrowed!=null&&typeof r.borrowed!=='boolean')fail('Invalid ownership.');

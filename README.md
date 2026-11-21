@@ -14,11 +14,11 @@ npm run build
 Open http://127.0.0.1:4173. Vercel uses `npm run build` and the `dist` directory; no environment variables are needed.
 
 ## Features
-- Vertical or horizontal branches; shared veteran library, role icons, borrowed-parent availability, and documented-parent filter.
+- Vertical or horizontal progression and seven-slot pedigree maps; shared veteran library, role icons, borrowed-parent availability, documented-parent and core filters, and rating/core/priority sorting.
 - Separate core and priority goals with editable highest-first priority ordering, with core revisions and three-, six-, and seven-slot pedigree coverage.
 - Planned runs, support decks, G1 win records and intended race calendars. Convert a plan into its actual result without breaking links.
-- Character, skill and support reference catalog. Conditional character/support event sources are distinguished from available kit skills.
-- JSON import (file or paste), merge, export and one previous-save backup. Personal data stays in browser storage. No accounts, analytics or server database.
+- Character, skill and support reference catalog with expandable named sources and event prerequisites. Conditional character/support event sources are distinguished from available kit skills.
+- JSON import (file or paste), merge, export (download or copyable JSON) and one previous-save backup. Personal data stays in browser storage. No accounts, analytics or server database.
 - Imported records are validated for malformed data, dangling references and cycles. Unknown sparks are distinct from confirmed absences.
 
 ## Calculation scope
@@ -43,3 +43,7 @@ Catalog event records are references, not an exhaustive verified event-probabili
 Edit source, run tests, build, and push to the connected Vercel repository. Keep mechanics changes covered by boundary tests and update the source/scope notes. Catalog data must be reviewed for Global compatibility before changing the snapshot date.
 
 White spark selectors use GameTora’s factor catalog (https://gametora.com/data/umamusume/factors.cd8cf711.json), snapshot 2026-11-21. Only Global-named skill, race and scenario factors are offered; this does not guarantee scenario release availability. Unique, gold, negative and upgraded double-circle learned skills are not white spark choices. Unknown imported entries remain visible for correction. Priority array order is user-defined, highest first. Grove icons and purpose are editable. Veteran IDs, not ratings, identify records.
+
+The request audit in REQUIREMENTS.md tracks remaining data and verification gaps; do not treat the catalog as a complete event-probability database.
+
+Completed scores are optional integers; rank is derived from GameTora's Global single_mode_rank table (https://gametora.com/data/umamusume/en/db-files/single_mode_rank.d624caeb.json). Planned runs use estimated bands. Friendly character/outfit labels and reorderable copy numbers are separate from permanent internal IDs. Deleting a veteran previews its descendants, archives them, and clears only broken references; export a backup first.
