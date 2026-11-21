@@ -15,7 +15,7 @@ Open http://127.0.0.1:4173. Vercel uses `npm run build` and the `dist` directory
 
 ## Features
 - Vertical or horizontal branches; shared veteran library, role icons, borrowed-parent availability, and documented-parent filter.
-- Separate core and priority goals with editable High / Normal / Situational preferences, with core revisions and three-, six-, and seven-slot pedigree coverage.
+- Separate core and priority goals with editable highest-first priority ordering, with core revisions and three-, six-, and seven-slot pedigree coverage.
 - Planned runs, support decks, G1 win records and intended race calendars. Convert a plan into its actual result without breaking links.
 - Character, skill and support reference catalog. Conditional character/support event sources are distinguished from available kit skills.
 - JSON import (file or paste), merge, export and one previous-save backup. Personal data stays in browser storage. No accounts, analytics or server database.
@@ -41,3 +41,5 @@ Catalog event records are references, not an exhaustive verified event-probabili
 
 ## Updating
 Edit source, run tests, build, and push to the connected Vercel repository. Keep mechanics changes covered by boundary tests and update the source/scope notes. Catalog data must be reviewed for Global compatibility before changing the snapshot date.
+
+White spark selectors use GameTora’s factor catalog (https://gametora.com/data/umamusume/factors.cd8cf711.json), snapshot 2026-11-21. Only Global-named skill, race and scenario factors are offered; this does not guarantee scenario release availability. Unique, gold, negative and upgraded double-circle learned skills are not white spark choices. Unknown imported entries remain visible for correction. Priority array order is user-defined, highest first. Grove icons and purpose are editable. Veteran IDs, not ratings, identify records.
