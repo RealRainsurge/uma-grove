@@ -37,3 +37,5 @@ This checklist distinguishes implementation from verification. It is not a claim
 No exact combined probability of obtaining all event hints, buying all skills and rolling all sparks is claimed. The required event probabilities are not established by the available evidence.
 
 Additional record audit: character/outfit choices use catalog names; visible copy numbers are reorderable while permanent links retain IDs. Completed scores are optional whole numbers and ranks are derived; planned records hide exact score. Deletion previews affected descendants across groves, archives them, and clears broken links. Boundary, ordering, deletion, and malformed-score cases are covered by automated tests. Portrait framing keeps most of the portrait within the circle.
+
+Latest UI pass: removed repeated role labels and the top white total; role buttons expose help on tap and hover. Game rank badges sit above the portrait, copy numbers beside names, borrowed snapshots retain a badge. Added grove deletion confirmation and tested deletion plus restoration locally with all 14 veterans preserved.

@@ -21,3 +21,5 @@ export function removeVeteran(db,id){
  for(const t of next.trees){const removed=t.entries.find(e=>e.runId===id);t.entries=t.entries.filter(e=>e.runId!==id);for(const e of t.entries)if(e.previous===id)e.previous=null;}
  return next;
 }
+
+export function removeGrove(db,id){const next=structuredClone(db);next.trees=next.trees.filter(t=>t.id!==id);return next;}
